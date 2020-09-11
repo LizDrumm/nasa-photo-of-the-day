@@ -5,7 +5,7 @@ import "./App.css";
 import Header from './components/Header';
 
 
-import { BASE_URL, API_KEY } from './constants/index.js'
+//import { BASE_URL, API_KEY } from './constants/index.js'
 
 
 
@@ -17,8 +17,8 @@ function App() {
   const [filtered, setFiltered] = useState(data)
 
   useEffect(() => {
-    axios.get(`${BASE_URL}?api_key=${API_KEY}`)
-   //axios.get ('https://api.nasa.gov/planetary/apod?api_key=B9bFEkAnXmyB5VOr3WeKhHuaXmmIhMd0WrXYmOxy')
+    //axios.get(`${BASE_URL}?api_key=${API_KEY}`)
+   axios.get ('https://api.nasa.gov/planetary/apod?api_key=B9bFEkAnXmyB5VOr3WeKhHuaXmmIhMd0WrXYmOxy')
     .then(( response => {
       setData(response.data)
     }))
