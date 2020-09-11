@@ -1,78 +1,44 @@
-import React from 'react';
-import moment from 'moment';
-import {SingleDatePicker} from 'react-dates';
-import 'react-dates/initialize';
-import 'react-dates/lib/css/_datepicker.css';
+ import React from 'react';
+ import DatePicker from 'react-datepicker';
+ import "react-datepicker/dist/react-datepicker.css"
+import styled, {keyframes} from 'styled-components'
 
-export default class ExpenseForm extends React.Component {
-    constructor(props){
-        super(props)
 
-        this.state = {
-            description: props.expense ? props.expense.description : "",
-            amount: props.expense ? props.expense.amount : "",
-            note: props.expense ? props.expense.note : "",
-            createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
-            focused: false
-        }
-    }
+const StyledHeader = styled.div`
+background-image:url('https://interactive.wttw.com/sites/default/files/styles/full/public/images/2020/01/27/Orion-Betelgeuse.jpg?itok=VRPu8d3y');
+padding-top:3%;
 
-    onDescriptionChange = (e) => {
-        const description = e.target.value
-        this.setState(() => ({description}))
-    }
+h1{
+    color:${pr => pr.theme.tertiaryColor};
+}
+p{
+   color:${pr => pr.theme.tertiaryColor};
+   font-weight:bold;
+}
+div{
+    padding-bottom:2%;
+}
 
-    onAmountChange = (e) => {
-        const amount = e.target.value
-        this.setState(() => ({amount}))
-    }
+`
+export default function Header({ date, setDate }) {
 
-    onNoteChange = (e) => {
-        const note = e.target.value
-        this.setState(() => ({note}))
-    }
-
-    onSubmit = (e) => {
-        e.preventDefault();
-        this.props.onSubmit({
-            description: this.state.description,
-            amount: this.state.amount,
-            note: this.state.note,
-            createdAt: this.state.createdAt.format('L')
-        })
-    }
-    render() {
-        return (
-            <div>
-                <form onSubmit = {this.onSubmit}>
-                    <input type="text" placeholder="Description"
-                        value={this.state.description}
-                        onChange={this.onDescriptionChange}/>
-                    <input type="number" placeholder="Amount"
-                        value={this.state.amount}
-                        onChange={this.onAmountChange}/>
-                    <SingleDatePicker
-                        date={this.state.createdAt} 
-                        onDateChange={date => this.setState({ createdAt: date })} 
-                        focused={this.state.focused} 
-                        onFocusChange={({ focused }) => this.setState({ focused })}
-                        numberOfMonths={1} 
-                        isOutsideRange={() => false}/>
-                    <textarea placeholder="Add note for expense (optional)"
-                        value={this.state.note}
-                        onChange={this.onNoteChange}></textarea>
-                    <button>Add Expense</button>
-                </form>
-            </div>
-        )
-    }
+    const onChange = (e) => {
+      setDate(e.target.value)
+     }
+  
+   
+   return (
+       <StyledHeader className = "header"> 
+       <h1>NASA Photo of the Day!</h1>
+      <div className="date-picker">
+         <p>Search for previous pictures:</p>
+         <DatePicker
+            onChange={onChange} 
+            value={date}
+         />
+      </div>
+      </StyledHeader>
+   )
 }
 
 
-<SingleDatePicker
-  date={this.state.date}
-  onDateChange={date => this.setState({ createdAt:date })} 
-  focused={this.state.focused} 
-  onFocusChange={({ focused }) => this.setState({focused)} 
-  id="your_unique_id" 
-/>
